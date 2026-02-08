@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 🎉</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<audio id="music" src="birthday.mp3" loop></audio>
+
+<div class="screen active" id="screen1">
+  <h1>🎉 Happy Birthday Bestie 🎉</h1>
+  <button onclick="startMagic()">Start the Magic ✨</button>
+</div>
+
+<div class="screen" id="screen2">
+  <p id="typing"></p>
+  <button onclick="openGift()">Open Your Gift 🎁</button>
+</div>
+
+<div class="screen" id="screen3">
+  <div class="gift" onclick="showNotes()">🎁</div>
+</div>
+
+<div class="screen" id="screen4">
+  <div class="notes">
+    <span onclick="revealNote(this)">💖</span>
+    <span onclick="revealNote(this)">🌈</span>
+    <span onclick="revealNote(this)">✨</span>
+  </div>
+  <button onclick="goCake()">Next 🎂</button>
+</div>
+
+<div class="screen" id="screen5">
+  <div class="cake" onclick="blowCandles()">🎂</div>
+  <p id="candleText">Tap the cake to blow the candles 💨</p>
+</div>
+
+<div class="screen" id="screen6">
+  <h1>🎆 You Are Truly Special 🎆</h1>
+  <p>Never forget how loved you are 💖</p>
+</div>
+
+<script>
+const screens = document.querySelectorAll(".screen");
+function showScreen(id) {
+  screens.forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+const message =
+"Today is all about you 💖\n" +
+"Your smile makes everything better 🌈\n" +
+"Thank you for existing ✨";
+
+let i = 0;
+function typeText() {
+  if (i < message.length) {
+    document.getElementById("typing").innerHTML +=
+      message.charAt(i) === "\n" ? "<br>" : message.charAt(i);
+    i++;
+    setTimeout(typeText, 60);
+  }
+}
+
+function startMagic() {
+  document.getElementById("music").play();
+  showScreen("screen2");
+  typeText();
+}
+
+function openGift() {
+  showScreen("screen3");
+}
+
+function showNotes() {
+  showScreen("screen4");
+}
+
+function revealNote(el) {
+  const notes = ["You matter 💖", "You are enough 🌈", "You are loved ✨"];
+  el.innerText = notes[Math.floor(Math.random() * notes.length)];
+}
+
+function goCake() {
+  showScreen("screen5");
+}
+
+function blowCandles() {
+  document.querySelector(".cake").innerText = "🎂✨";
+  document.getElementById("candleText").innerText = "Wish made 💫";
+  setTimeout(() => showScreen("screen6"), 1500);
+}
+</script>
+
+</body>
+</html>
